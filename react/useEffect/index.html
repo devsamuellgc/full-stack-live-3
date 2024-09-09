@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aula sobre useEffect no React</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Aula sobre <code>useEffect</code> no React</h1>
+
+    <h2>1. O que é <code>useEffect</code>?</h2>
+    <p>
+      <code>useEffect</code> é um hook do React que permite realizar efeitos
+      colaterais em componentes funcionais.
+    </p>
+    <ul>
+      <li>
+        É utilizado para tarefas como manipulação de DOM, chamadas a APIs,
+        subscrições, entre outros.
+      </li>
+      <li>
+        Substitui os métodos de ciclo de vida como
+        <code>componentDidMount</code>, <code>componentDidUpdate</code>, e
+        <code>componentWillUnmount</code> usados em componentes de classe.
+      </li>
+    </ul>
+
+    <h2>2. Sintaxe Básica do <code>useEffect</code></h2>
+    <p>A função <code>useEffect</code> aceita dois argumentos:</p>
+    <ul>
+      <li>A função de efeito (callback).</li>
+      <li>Um array de dependências opcional.</li>
+    </ul>
+    <pre><code>useEffect(() => {
+  // código do efeito
+}, [dependência]);</code></pre>
+
+    <h2>3. Como o <code>useEffect</code> funciona?</h2>
+    <p>
+      O <code>useEffect</code> é executado após a renderização do componente.
+    </p>
+    <ul>
+      <li>
+        Sem o array de dependências, ele será executado após cada renderização.
+      </li>
+      <li>
+        Com um array vazio <code>[]</code>, ele será executado apenas uma vez,
+        após a primeira renderização.
+      </li>
+      <li>
+        Se houver dependências, ele será executado novamente quando uma delas
+        for alterada.
+      </li>
+    </ul>
+
+    <h2>4. Exemplo de uso do <code>useEffect</code></h2>
+    <p>Fazendo uma chamada a uma API quando o componente for montado:</p>
+    <pre><code>useEffect(() => {
+  fetch('https://api.example.com/data')
+    .then(response => response.json())
+    .then(data => setData(data));
+}, []);</code></pre>
+
+    <h2>5. Limpeza (Cleanup) no <code>useEffect</code></h2>
+    <p>
+      Se o efeito gera um comportamento contínuo (como subscrições), é
+      importante limpar esse efeito.
+    </p>
+    <p>
+      Isso é feito retornando uma função de limpeza dentro do
+      <code>useEffect</code>:
+    </p>
+    <pre><code>useEffect(() => {
+  const subscription = subscribeToSomething();
+  return () => {
+    // Limpeza
+    subscription.unsubscribe();
+  };
+}, [dependência]);</code></pre>
+
+    <h2>6. Boas Práticas com o <code>useEffect</code></h2>
+    <ul>
+      <li>
+        Evite múltiplos <code>useEffect</code> com dependências conflitantes.
+      </li>
+      <li>Use múltiplos <code>useEffect</code> para efeitos independentes.</li>
+      <li>
+        Garanta que o código de limpeza esteja correto para evitar vazamentos de
+        memória.
+      </li>
+    </ul>
+
+    <h2>7. Exemplo Prático de um Componente com <code>useEffect</code></h2>
+    <p>Atualizando o título da página dinamicamente:</p>
+    <pre><code>function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = `Você clicou ${count} vezes`;
+  }, [count]);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Você clicou {count} vezes&lt;/p&gt;
+      &lt;button onClick={() => setCount(count + 1)}&gt;
+        Clique aqui
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+    <h2>8. Recursos para Estudo</h2>
+    <ul>
+      <li>
+        <a href="https://reactjs.org/docs/hooks-effect.html" target="_blank"
+          >Documentação Oficial do React - useEffect</a
+        >
+      </li>
+      <li>Prática em plataformas como o CodeSandbox</li>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aula sobre JSX no React</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Aula sobre JSX no React</h1>
+
+    <h2>1. O que é JSX?</h2>
+    <p>
+      JSX (JavaScript XML) é uma extensão de sintaxe para JavaScript usada no
+      React. Ele permite escrever código que se parece com HTML dentro de
+      arquivos JavaScript.
+    </p>
+    <pre><code>const element = &lt;h1&gt;Hello, world!&lt;/h1&gt;;</code></pre>
+    <p>
+      JSX é compilado para <code>React.createElement()</code>, que retorna um
+      objeto JavaScript representando um elemento DOM.
+    </p>
+
+    <h2>2. Vantagens do JSX</h2>
+    <ul>
+      <li>
+        <strong>Intuitivo e legível:</strong> Facilita o desenvolvimento,
+        especialmente para quem já conhece HTML.
+      </li>
+      <li>
+        <strong>Segurança:</strong> O React escapa automaticamente dados no JSX,
+        prevenindo ataques XSS.
+      </li>
+      <li>
+        <strong>Expressividade:</strong> Você pode usar expressões JavaScript
+        dentro do JSX.
+      </li>
+    </ul>
+    <pre><code>const name = 'Maria';
+const element = &lt;h1&gt;Hello, {name}!&lt;/h1&gt;;</code></pre>
+
+    <h2>3. Como o JSX é transformado?</h2>
+    <p>JSX é transformado em JavaScript através de ferramentas como Babel.</p>
+    <pre><code>// JSX
+const element = &lt;h1&gt;Hello, world!&lt;/h1&gt;;
+
+// JavaScript compilado
+const element = React.createElement('h1', null, 'Hello, world!');</code></pre>
+
+    <h2>4. Diferenças entre HTML e JSX</h2>
+    <ul>
+      <li>
+        <strong>CamelCase:</strong> Atributos no JSX são escritos em camelCase
+        (<code>className</code> ao invés de <code>class</code>).
+      </li>
+      <li>
+        <strong>Fechamento de tags:</strong> Todas as tags precisam ser
+        fechadas, mesmo aquelas sem conteúdo.
+      </li>
+      <li>
+        <strong>Fragmentos:</strong> Use <code>&lt;&gt;&lt;/&gt;</code> para
+        agrupar elementos sem criar um nó adicional no DOM.
+      </li>
+    </ul>
+    <pre><code>const element = (
+  &lt;&gt;
+    &lt;h1&gt;Hello!&lt;/h1&gt;
+    &lt;p&gt;Welcome to JSX.&lt;/p&gt;
+  &lt;/&gt;
+);</code></pre>
+
+    <h2>5. Incorporando Expressões JavaScript no JSX</h2>
+    <p>
+      Você pode usar expressões JavaScript dentro do JSX, como variáveis,
+      operadores ternários, etc.
+    </p>
+    <pre><code>const user = { firstName: 'João', lastName: 'Silva' };
+const greeting = &lt;h1&gt;Hello, {user.firstName} {user.lastName}!&lt;/h1&gt;;</code></pre>
+
+    <h2>6. Estilos e Classes no JSX</h2>
+    <p>
+      <strong>Estilos inline:</strong> Passados como objetos JavaScript com
+      propriedades em camelCase.
+    </p>
+    <p>
+      <strong>Classes:</strong> Use <code>className</code> em vez de
+      <code>class</code>.
+    </p>
+    <pre><code>const element = (
+  &lt;div style={{ color: 'blue', backgroundColor: 'lightgray' }}&gt;
+    This is a styled element!
+  &lt;/div&gt;
+);</code></pre>
+
+    <h2>7. Funções e Componentes em JSX</h2>
+    <p>Componentes em React podem ser criados como funções que retornam JSX.</p>
+    <pre><code>function Welcome(props) {
+  return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;;
+}
+
+const element = &lt;Welcome name="João" /&gt;;</code></pre>
+
+    <h2>8. Boas Práticas no Uso de JSX</h2>
+    <ul>
+      <li>
+        <strong>Divida componentes grandes:</strong> Se o componente fica muito
+        longo, divida-o em componentes menores.
+      </li>
+      <li>
+        <strong>Modere o uso de expressões complexas:</strong> Prefira guardar
+        valores intermediários em variáveis.
+      </li>
+    </ul>
+    <pre><code>const total = 5 + 10; // Melhor calcular fora do JSX
+return &lt;p&gt;The total is {total}&lt;/p&gt;;</code></pre>
+
+    <h2>9. Hands-on com JSX (Atividade prática)</h2>
+    <p>
+      Peça aos alunos para criar um componente que renderiza uma lista de itens
+      dinamicamente.
+    </p>
+    <pre><code>function ShoppingList() {
+  const items = ['Apple', 'Banana', 'Cherry'];
+  return (
+    &lt;ul&gt;
+      {items.map((item, index) =&gt; (
+        &lt;li key={index}&gt;{item}&lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}</code></pre>
+
+    <h2>10. Recursos para Estudo</h2>
+    <ul>
+      <li>
+        <a href="https://reactjs.org/docs/introducing-jsx.html" target="_blank"
+          >Documentação Oficial do React</a
+        >
+      </li>
+      <li>CodeSandbox para experimentação</li>
+    </ul>
+  </body>
+</html>
