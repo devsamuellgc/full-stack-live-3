@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Form } from "./Form";
 
 export default function App() {
-  const [name, setName] = useState("Nome 1");
+  const [name, setName] = useState("");
   const [amount, setAmount] = useState(0);
   const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   function changeName(newName) {
     console.log(name);
@@ -27,8 +29,49 @@ export default function App() {
     setCount((prev) => prev + Number(amount));
   }
 
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setName("Nome 1");
+      setLoading(false);
+    }, 3500);
+  }, []);
+
+  useEffect(() => {
+    alert(count);
+  }, [count]);
+
+  // const guests = [
+  //   "Convidado 1", // 0
+  //   "Convidado 2", // 1
+  //   "Convidado 3", // 2
+  //   "Convidado 4", // 3
+  //   "Convidado 5", // 4
+  // ];
+
+  // const guestsObj = [
+  //   { name: "Convidado 1", age: 29, city: "Fortaleza" }, // 0
+  //   { name: "Convidado 2", age: 29, city: "Fortaleza" }, // 1
+  //   { name: "Convidado 3", age: 29, city: "Fortaleza" }, // 2
+  //   { name: "Convidado 4", age: 29, city: "Eusébio" }, // 3
+  //   { name: "Convidado 5", age: 29, city: "Caucaia" }, // 4
+  // ];
+
+  if (loading) return <h2>Carregando...</h2>;
+
   return (
     <>
+      {/* <Form /> */}
+      {/* {guests.map((guest, index) => (
+        <p key={`${guest} - ${index} - 1`}>{guest}</p>
+      ))}
+
+      {guestsObj.map((guest, index) => (
+        <p key={`${guest.name} - ${index} - 2`}>
+          {guest.name} - {guest.city}
+        </p>
+      ))} */}
+
       <div>
         <h1>{name}</h1>
         <button onClick={() => changeName("Nome 2")}>Alterar nome</button>
