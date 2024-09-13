@@ -1,45 +1,49 @@
-import { useEffect, useState } from "react";
-import { Form } from "./Form";
+// import { useEffect, useState } from "react";
+// import { Form } from "./Form";
+// import { DynamicTitle } from "./DynamicTitle";
+// import { Title } from "./Title";
+
+import { CarCard } from "./components/CarCard";
 
 export default function App() {
-  const [name, setName] = useState("");
-  const [amount, setAmount] = useState(0);
-  const [count, setCount] = useState(0);
-  const [loading, setLoading] = useState(false);
+  // const [name, setName] = useState("");
+  // const [amount, setAmount] = useState(0);
+  // const [count, setCount] = useState(0);
+  // const [loading, setLoading] = useState(false);
 
-  function changeName(newName) {
-    console.log(name);
-    setName(newName);
-    console.log(name);
-  }
+  // function changeName(newName) {
+  //   console.log(name);
+  //   setName(newName);
+  //   console.log(name);
+  // }
 
-  function handleChange(event) {
-    setAmount(event.target.value);
-  }
+  // function handleChange(event) {
+  //   setAmount(event.target.value);
+  // }
 
-  function sumCount() {
-    setCount((prev) => prev + 1);
-  }
+  // function sumCount() {
+  //   setCount((prev) => prev + 1);
+  // }
 
-  function subCount() {
-    setCount((prev) => prev - 1);
-  }
+  // function subCount() {
+  //   setCount((prev) => prev - 1);
+  // }
 
-  function sumTotal() {
-    setCount((prev) => prev + Number(amount));
-  }
+  // function sumTotal() {
+  //   setCount((prev) => prev + Number(amount));
+  // }
 
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setName("Nome 1");
-      setLoading(false);
-    }, 3500);
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setName("Nome 1");
+  //     setLoading(false);
+  //   }, 3500);
+  // }, []);
 
-  useEffect(() => {
-    alert(count);
-  }, [count]);
+  // useEffect(() => {
+  //   alert(count);
+  // }, [count]);
 
   // const guests = [
   //   "Convidado 1", // 0
@@ -57,7 +61,63 @@ export default function App() {
   //   { name: "Convidado 5", age: 29, city: "Caucaia" }, // 4
   // ];
 
-  if (loading) return <h2>Carregando...</h2>;
+  // const mostrarAlerta = () => {
+  //   alert("Botão clicado!");
+  // };
+
+  // const guestsName = [
+  //   { firstName: "John", lastName: "Doe" },
+  //   { firstName: "Jane", lastName: "Smith" },
+  //   { firstName: "Michael", lastName: "Johnson" },
+  //   { firstName: "Emily", lastName: "Davis" },
+  //   { firstName: "Daniel", lastName: "Martinez" },
+  //   { firstName: "Sophia", lastName: "Garcia" },
+  //   { firstName: "William", lastName: "Wilson" },
+  //   { firstName: "Olivia", lastName: "Taylor" },
+  //   { firstName: "James", lastName: "Brown" },
+  //   { firstName: "Isabella", lastName: "Anderson" },
+  // ];
+
+  const cars = [
+    {
+      city: "Fortaleza",
+      date: "24/08/2024",
+      hour: "13:45",
+      img: "https://img.olx.com.br/images/44/447450791613087.webp",
+      price: "89.900",
+      state: "CE",
+      title: "PUNTO TJET 1.4 TURBO FORJADO - ANO 2016",
+    },
+    {
+      city: "Caucaia",
+      date: "24/08/2024",
+      hour: "13:45",
+      img: "https://img.olx.com.br/images/44/447450791613087.webp",
+      price: "89.900",
+      state: "CE",
+      title: "PUNTO TJET 1.4 TURBO FORJADO - ANO 2016",
+    },
+    {
+      city: "Eusébio",
+      date: "24/08/2024",
+      hour: "13:45",
+      img: "https://img.olx.com.br/images/44/447450791613087.webp",
+      price: "42.900",
+      state: "CE",
+      title: "Punto Itália 2016 1.4 extra",
+    },
+    {
+      city: "Maranguape",
+      date: "10/05/2023",
+      hour: "19:20",
+      img: "https://img.olx.com.br/images/44/447450791613087.webp",
+      price: "42.000",
+      state: "CE",
+      title: "FIAT PUNT 2012 2013",
+    },
+  ];
+
+  // if (loading) return <h2>Carregando...</h2>;
 
   return (
     <>
@@ -72,7 +132,7 @@ export default function App() {
         </p>
       ))} */}
 
-      <div>
+      {/* <div>
         <h1>{name}</h1>
         <button onClick={() => changeName("Nome 2")}>Alterar nome</button>
         <button onClick={() => changeName("Nome 1")}>Valor anterior</button>
@@ -89,6 +149,30 @@ export default function App() {
         <button onClick={sumCount}>+</button>
         <p>{count}</p>
         <button onClick={subCount}>-</button>
+      </div> */}
+      {/* <ol>
+        {guestsName &&
+          guestsName.map((guest, index) => (
+            <DynamicTitle
+              key={`${guest.firstName} - ${guest.lastName} - ${index}`}
+              firstName={guest.firstName}
+              lastName={guest.lastName}
+            />
+          ))}
+      </ol> */}
+      <div className="h-screen w-full flex items-center justify-center gap-5">
+        {cars.map((car) => (
+          <CarCard
+            key={`${car.date} - ${car.hour}`}
+            city={car.city}
+            date={car.date}
+            hour={car.hour}
+            img={car.img}
+            price={car.price}
+            state={car.state}
+            title={car.title}
+          />
+        ))}
       </div>
     </>
   );

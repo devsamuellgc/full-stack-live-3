@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aula sobre Props no React</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Aula sobre <code>props</code> no React</h1>
+
+    <h2>1. O que são <code>props</code>?</h2>
+    <p>
+      <code>props</code> é a abreviação de "propriedades" e são usados para
+      passar dados de um componente pai para um componente filho no React.
+    </p>
+    <p>Elas permitem que componentes sejam reutilizáveis e dinâmicos.</p>
+    <pre><code>function Saudacao(props) {
+  return &lt;h1&gt;Olá, {props.nome}&lt;/h1&gt;;
+}</code></pre>
+
+    <h2>2. Como as <code>props</code> funcionam?</h2>
+    <p>
+      As <code>props</code> são passadas para um componente como atributos em
+      JSX e acessadas dentro do componente através de <code>props</code>.
+    </p>
+    <pre><code>function App() {
+  return &lt;Saudacao nome="Maria" /&gt;;
+}</code></pre>
+
+    <h2>3. Props são somente leitura</h2>
+    <p>
+      Uma regra importante sobre <code>props</code> é que elas são imutáveis, ou
+      seja, o componente filho não deve modificá-las.
+    </p>
+    <p>
+      Elas servem apenas para leitura. Para alterar dados, use o
+      <code>state</code> em vez disso.
+    </p>
+
+    <h2>4. Passando múltiplas <code>props</code></h2>
+    <p>
+      Você pode passar quantas <code>props</code> quiser para um componente.
+      Elas serão acessadas como propriedades no objeto <code>props</code>.
+    </p>
+    <pre><code>function Saudacao(props) {
+  return &lt;p&gt;Olá, {props.nome}. Você tem {props.idade} anos.&lt;/p&gt;;
+}
+
+function App() {
+  return &lt;Saudacao nome="João" idade={30} /&gt;;
+}</code></pre>
+
+    <h2>5. Props padrão (default props)</h2>
+    <p>
+      Você pode definir valores padrão para <code>props</code> caso nenhuma seja
+      passada.
+    </p>
+    <pre><code>function Saudacao(props) {
+  return &lt;p&gt;Olá, {props.nome}!&lt;/p&gt;;
+}
+
+Saudacao.defaultProps = {
+  nome: 'Visitante'
+};
+
+function App() {
+  return &lt;Saudacao /&gt;; // Saudação padrão: "Olá, Visitante!"
+}</code></pre>
+
+    <h2>6. Passando funções como props</h2>
+    <p>
+      É possível passar funções como <code>props</code> para componentes. Isso
+      permite, por exemplo, que o componente filho execute uma ação no
+      componente pai.
+    </p>
+    <pre><code>function Botao(props) {
+  return &lt;button onClick={props.aoClicar}&gt;Clique aqui&lt;/button&gt;;
+}
+
+function App() {
+  const mostrarAlerta = () =&gt; {
+    alert('Botão clicado!');
+  };
+
+  return &lt;Botao aoClicar={mostrarAlerta} /&gt;;
+}</code></pre>
+
+    <h2>7. Desestruturando props</h2>
+    <p>
+      Em vez de acessar as <code>props</code> como <code>props.nome</code>, você
+      pode desestruturá-las diretamente nos parâmetros da função.
+    </p>
+    <pre><code>function Saudacao({ nome, idade }) {
+  return &lt;p&gt;Olá, {nome}. Você tem {idade} anos.&lt;/p&gt;;
+}
+
+function App() {
+  return &lt;Saudacao nome="Ana" idade={25} /&gt;;
+}</code></pre>
+
+    <h2>8. Exemplos práticos de componentes com props</h2>
+    <p>
+      Exemplo de um componente que renderiza uma lista de itens recebidos como
+      <code>props</code>:
+    </p>
+    <pre><code>function ListaDeItens({ itens }) {
+  return (
+    &lt;ul&gt;
+      {itens.map((item, index) =&gt; (
+        &lt;li key={index}&gt;{item}&lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function App() {
+  const meusItens = ['Item 1', 'Item 2', 'Item 3'];
+  return &lt;ListaDeItens itens={meusItens} /&gt;;
+}</code></pre>
+
+    <h2>9. Boas práticas no uso de props</h2>
+    <ul>
+      <li>Use props para tornar componentes reutilizáveis.</li>
+      <li>Desestruture props para deixar o código mais limpo.</li>
+      <li>Defina valores padrão para props sempre que possível.</li>
+    </ul>
+
+    <h2>10. Recursos para Estudo</h2>
+    <ul>
+      <li>
+        <a
+          href="https://reactjs.org/docs/components-and-props.html"
+          target="_blank"
+          >Documentação Oficial do React - Props</a
+        >
+      </li>
+      <li>Prática no CodeSandbox para experimentar o uso de props</li>
+    </ul>
+  </body>
+</html>

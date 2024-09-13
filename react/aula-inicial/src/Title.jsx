@@ -1,5 +1,5 @@
 export function Title() {
-  const { firstName, lastName } = { firstName: "João", lastName: "Silva" };
+  const user = { firstName: "João", lastName: "Silva" };
 
   return (
     <h1>
