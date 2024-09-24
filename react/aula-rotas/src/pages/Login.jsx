@@ -1,17 +1,15 @@
-import { useState } from "react";
 import { InputStructure } from "../components/InputStructure";
 import { useToast } from "../hooks/useToast";
 import { useRedirect } from "../hooks/useRedirect";
+import { useAuthContext } from "../contexts/auth";
 
 export default function Login() {
-  const [user, setUser] = useState({ name: "", email: "" });
   const { goTo } = useRedirect();
   const { showToast } = useToast();
+  const { setUser, user } = useAuthContext();
 
   function handleSubmit() {
     if (user.name.length > 0 && user.email.length > 0) {
-      const userJson = JSON.stringify(user);
-      localStorage.setItem("user", userJson);
       goTo("/");
     } else {
       showToast("Todos os campos são obrigatórios!", "error");
