@@ -4,6 +4,8 @@ import Login from "./pages/Login";
 import GenerateMessage from "./pages/GenerateMessage";
 import PresentMessage from "./pages/PresentMessage";
 import { MessageProvider } from "./contexts/message";
+import { ProductDetails } from "./pages/ProductDetails";
+import { ProductsList } from "./pages/ProductsList";
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +15,14 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/produto/:id",
+    element: <ProductDetails />,
+  },
+  {
+    path: "/produtos",
+    element: <ProductsList />,
   },
   {
     path: "/gerar-mensagem",

@@ -12,7 +12,7 @@ export default function Home() {
   const [advice, setAdvice] = useState("");
 
   async function fetchAdvice() {
-    const response = await axios.get("https://api.adviceslip.com/advice");
+    const response = await axios.get("https://api.adviceslip.com/advice/200");
     setAdvice(response.data.slip.advice);
   }
 
