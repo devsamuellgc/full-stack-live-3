@@ -13,8 +13,12 @@ export function Header() {
     py-4 border bg-sky-600 text-white items-center justify-between font-semibold"
     >
       <h1>Bem-vindo, {user.name}</h1>
-      <p>{counter}</p>
-      <button onClick={logOut} className="hover:opacity-75">
+      <p data-cy="counter">{counter}</p>
+      <button
+        data-cy="btn-logout"
+        onClick={logOut}
+        className="hover:opacity-75"
+      >
         Sair
       </button>
     </header>

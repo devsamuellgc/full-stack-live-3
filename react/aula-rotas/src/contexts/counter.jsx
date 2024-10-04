@@ -10,7 +10,10 @@ function CounterProvider({ children }) {
   }
 
   function decreaseCounter() {
-    setCounter(counter - 1);
+    setCounter((prev) => {
+      if (prev - 1 < 0) return prev;
+      return prev - 1;
+    });
   }
 
   const initialValues = { increaseCounter, decreaseCounter, counter };

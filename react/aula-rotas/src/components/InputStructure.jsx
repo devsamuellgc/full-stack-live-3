@@ -3,7 +3,6 @@ export function InputStructure({
   name,
   placeholder,
   label,
-  value,
   onChange,
 }) {
   return (
@@ -14,7 +13,6 @@ export function InputStructure({
       <input
         className="bg-transparent border-2 border-black rounded px-2 py-1 outline-none"
         name={name}
-        value={value}
         onChange={onChange}
         type={type}
         placeholder={placeholder}

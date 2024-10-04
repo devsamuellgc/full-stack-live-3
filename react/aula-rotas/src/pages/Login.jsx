@@ -42,6 +42,7 @@ export default function Login() {
         </div>
         <button
           type="button"
+          data-cy="btn-submit"
           className="
             w-full 
             py-1 
