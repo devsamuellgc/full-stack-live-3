@@ -100,3 +100,51 @@ SET
   senha = '987456321'
 WHERE
   id = 1;
+
+-- COUNT (Contagem)
+SELECT
+  COUNT(email)
+FROM
+  db_live_3.usuarios;
+
+SELECT
+  COUNT(*)
+FROM
+  db_live_3.usuarios;
+
+SELECT
+  COUNT(*)
+FROM
+  db_live_3.livros
+WHERE
+  ano_publicacao > 1900;
+
+-- AVG (Média)
+SELECT
+  AVG(preco)
+FROM
+  db_live_3.livros;
+
+SELECT
+  AVG(preco)
+FROM
+  db_live_3.livros
+WHERE
+  preco > 30;
+
+-- GROUP BY
+SELECT
+  autor,
+  COUNT(*)
+FROM
+  db_live_3.livros
+GROUP BY
+  autor;
+
+SELECT
+  autor,
+  COUNT(*) AS total_livros
+FROM
+  db_live_3.livros
+GROUP BY
+  autor;

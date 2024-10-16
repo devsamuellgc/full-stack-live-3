@@ -5,18 +5,18 @@ Lista de Exercícios - Tabela de Livros
    titulo (VARCHAR(255) NOT NULL),
    autor (VARCHAR(200) NOT NULL),
    ano_publicacao (INT),
-   preco (DECIMAL(10,2) NOT NULL)
+   preco (DECIMAL(10,2) NOT NULL) - OK
 
-- Inserção de Dados -> 20 LIVROS;
-- Listar Todos os Livros;
-- Listar Título e Preço dos Livros;
-- Filtrar Livros por Autor;
-- Livros Publicados Após 1900;
-- Ordenar Livros pelo Preço;
-- Ordenar Livros pelo Ano de Publicação;
-- Atualizar Preço de um Livro;
-- Excluir Livro por Título;
-- Contar o Número de Livros;
-- Preço Médio dos Livros;
-- Livro Mais Caro;
-- Agrupar Livros por Autor;
+- Inserção de Dados -> 20 LIVROS; - OK
+- Listar Todos os Livros; - OK
+- Listar Título e Preço dos Livros; - OK
+- Filtrar Livros por Autor; - WHERE - OK
+- Livros Publicados Após 1900; - WHERE - OK
+- Ordenar Livros pelo Preço; - ORDER BY - OK
+- Ordenar Livros pelo Ano de Publicação; - ORDER BY - OK
+- Atualizar Preço de um Livro; - OK
+- Excluir Livro por Título; - OK
+- Contar o Número de Livros; - OK
+- Preço Médio dos Livros; - OK
+- Livro Mais Caro; - OK
+- Agrupar Livros por Autor; - OK
