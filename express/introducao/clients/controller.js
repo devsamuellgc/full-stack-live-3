@@ -1,4 +1,5 @@
 import * as service from "./service.js";
+import * as addressService from "../addresses/service.js";
 
 const getAllClients = async (req, res) => {
   const clients = await service.getAllClients();
@@ -33,21 +34,36 @@ const getClientById = async (req, res) => {
 };
 
 const createClient = async (req, res) => {
-  const body = req.body;
+  const client = req.body.info;
 
-  if (!body.name) {
+  const address = req.body.address;
+
+  if (!client.name) {
     return res.status(400).json({ error: "Nome obrigatório!" });
   }
 
-  if (!body.email || !service.isEmailValid(body.email)) {
+  if (!client.email || !service.isEmailValid(client.email)) {
     return res.status(400).json({ error: "E-mail inválido!" });
   }
 
-  if (await service.isEmailAvailable(body.email)) {
+  if (await service.isEmailAvailable(client.email)) {
     return res.status(400).json({ error: "E-mail já está em uso!" });
   }
 
-  const createdClient = await service.createClient(body);
+  const createdClient = await service.createClient(client);
+
+  if (address) {
+    const createdAddress = await addressService.createAddress({
+      ...address,
+      user_id: createdClient.id,
+    });
+
+    if (!createdAddress) {
+      return res.status(400).json({
+        message: "Erro ao criar endereço do usuário!",
+      });
+    }
+  }
 
   return res.status(201).json({
     message: "Cliente criado com sucesso",
@@ -73,17 +89,39 @@ const deleteClient = async (req, res) => {
 
 const editClient = async (req, res) => {
   const id = req.params.id;
-  const body = req.body;
+  const addressId = req.body.addressId;
+  const info = req.body.info;
+  const address = req.body.address;
 
-  if (body.email && !service.isEmailValid(body.email)) {
+  const client = await service.getClientById(id);
+
+  if (
+    info.email &&
+    info.email !== client.email &&
+    !service.isEmailValid(info.email)
+  ) {
     return res.status(400).json({ error: "E-mail inválido!" });
   }
 
-  if (body.email && (await service.isEmailAvailable(body.email))) {
+  if (
+    info.email &&
+    info.email !== client.email &&
+    (await service.isEmailAvailable(info.email))
+  ) {
     return res.status(400).json({ error: "E-mail já está em uso!" });
   }
 
-  const updatedClient = await service.editClient(id, body);
+  const updatedClient = await service.editClient(id, info);
+
+  if (address) {
+    const updatedAddress = await addressService.editAddress(addressId, address);
+
+    if (!updatedAddress) {
+      return res.status(400).json({
+        message: "Erro ao editar endereço do usuário!",
+      });
+    }
+  }
 
   return res
     .status(200)

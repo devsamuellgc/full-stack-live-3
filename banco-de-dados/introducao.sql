@@ -148,3 +148,23 @@ FROM
   db_live_3.livros
 GROUP BY
   autor;
+
+-- JOIN
+select
+  l.id,
+  l.titulo,
+  l.editora,
+  l.ano_publicacao,
+  a.nome as autor,
+  e.numero_exemplar,
+  e.status
+from
+  app_biblioteca.livros l
+  join app_biblioteca.autores a on l.autor_id = a.id
+  join app_biblioteca.exemplares e on e.livro_id = l.id
+where
+  e.status = 0
+order by
+  l.titulo
+limit
+  10 offset 0;

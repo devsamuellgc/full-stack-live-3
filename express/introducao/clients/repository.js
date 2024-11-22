@@ -27,27 +27,33 @@ const listAllClientsWithAddress = async (params) => {
 
   const query = `
     select
-      c.id,
-      c.name,
-      c.email,
-      c.document,
-      c.phone,
-      a.state,
-      a.city,
-      a.country,
-      a.street,
-      a.neighborhood,
-      a.zip_code,
-      a.number,
-      a.complement
+      json_build_object(
+        'id', c.id,
+        'name', c.name,
+        'email', c.email,
+        'document', c.document,
+        'phone', c.phone
+      ) as info,
+      json_build_object(
+        'id', a.id,
+        'state', a.state,
+        'city', a.city,
+        'country', a.country,
+        'street', a.street,
+        'neighborhood', a.neighborhood,
+        'zip_code', a.zip_code,
+        'number', a.number,
+        'complement', a.complement
+      ) as address
     from
       crm.clients c
-    join 
+    left join 
       crm.addresses a 
     on 
       c.id = a.user_id 
     order by
-      c.name
+      c.created_at
+    DESC
     limit
       ${perPage} 
     offset 
@@ -89,7 +95,7 @@ const createClient = async (client) => {
   const values = Object.values(client);
   const columns = keys.join(", ");
   const placeholders = keys.map((_, i) => `$${i + 1}`).join(", ");
-  const query = `INSERT INTO crm.clients (${columns}) VALUES (${placeholders});`;
+  const query = `INSERT INTO crm.clients (${columns}) VALUES (${placeholders}) RETURNING *;`;
   const result = await pool.query(query, values);
   return result.rows[0];
 };
@@ -105,10 +111,9 @@ const editClient = async (id, client) => {
   const keys = Object.keys(client);
   const values = Object.values(client);
   const placeholders = keys.map((key, i) => `${key} = $${i + 1}`).join(", ");
-  console.log(placeholders);
   const query = `UPDATE crm.clients SET ${placeholders} WHERE id = $${
     keys.length + 1
-  };`;
+  } RETURNING *;`;
   const result = await pool.query(query, [...values, id]);
   return result.rows[0];
 };

@@ -17,7 +17,7 @@ const createAddress = async (client) => {
   const values = Object.values(client);
   const columns = keys.join(", ");
   const placeholders = keys.map((_, i) => `$${i + 1}`).join(", ");
-  const query = `INSERT INTO crm.addresses (${columns}) VALUES (${placeholders});`;
+  const query = `INSERT INTO crm.addresses (${columns}) VALUES (${placeholders}) RETURNING *;`;
   const result = await pool.query(query, values);
   return result.rows[0];
 };
@@ -33,10 +33,9 @@ const editAddress = async (id, client) => {
   const keys = Object.keys(client);
   const values = Object.values(client);
   const placeholders = keys.map((key, i) => `${key} = $${i + 1}`).join(", ");
-  console.log(placeholders);
   const query = `UPDATE crm.addresses SET ${placeholders} WHERE id = $${
     keys.length + 1
-  };`;
+  } RETURNING *;`;
   const result = await pool.query(query, [...values, id]);
   return result.rows[0];
 };

@@ -11,21 +11,27 @@ import {
   TableRow,
 } from "../ui/table";
 import axios from "axios";
+import { NewClientModal } from "./Form";
 
-interface Customer {
-  id: string;
-  name: string;
-  email: string;
-  document: string;
-  phone: string;
-  state: string;
-  city: string;
-  country: string;
-  street: string;
-  neighborhood: string;
-  zip_code: string;
-  number: string;
-  complement?: string | null;
+export interface Customer {
+  info: {
+    id: string;
+    name: string;
+    email: string;
+    document: string;
+    phone: string;
+  };
+  address: {
+    id: string;
+    state: string;
+    city: string;
+    country: string;
+    street: string;
+    neighborhood: string;
+    zip_code: string;
+    number: string;
+    complement?: string | null;
+  };
 }
 
 interface Params {
@@ -96,26 +102,33 @@ export default function CustomerTable() {
           <TableBody>
             {customers &&
               customers.map((customer) => (
-                <TableRow key={customer.id}>
-                  <TableCell className="font-medium">{customer.name}</TableCell>
-                  <TableCell>{customer.phone}</TableCell>
-                  <TableCell>{customer.email}</TableCell>
-                  <TableCell>{customer.document}</TableCell>
-                  <TableCell>{customer.city}</TableCell>
-                  <TableCell>{customer.state}</TableCell>
-                  <TableCell>{customer.country}</TableCell>
+                <TableRow key={customer.info.id}>
+                  <TableCell className="font-medium">
+                    {customer.info.name}
+                  </TableCell>
+                  <TableCell>{customer.info.phone}</TableCell>
+                  <TableCell>{customer.info.email}</TableCell>
+                  <TableCell>{customer.info.document}</TableCell>
+                  <TableCell>{customer.address.city}</TableCell>
+                  <TableCell>{customer.address.state}</TableCell>
+                  <TableCell>{customer.address.country}</TableCell>
                   <TableCell>
                     <div className="flex gap-2">
+                      <NewClientModal
+                        client={customer}
+                        trigger={
+                          <button
+                            type="button"
+                            className="bg-transparent w-fit h-fit"
+                          >
+                            <Edit size={16} />
+                          </button>
+                        }
+                      />
                       <button
                         type="button"
                         className="bg-transparent w-fit h-fit"
-                      >
-                        <Edit size={16} />
-                      </button>
-                      <button
-                        type="button"
-                        className="bg-transparent w-fit h-fit"
-                        onClick={() => deleteCustomer(customer.id)}
+                        onClick={() => deleteCustomer(customer.info.id)}
                       >
                         <Trash2 size={16} color="#dc2626" />
                       </button>

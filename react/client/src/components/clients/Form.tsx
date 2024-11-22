@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,11 +9,14 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import axios from "axios";
+import { Customer } from "./Table";
 
 type ClientFormData = {
   name: string;
   email: string;
   phone: string;
+  document: string;
   street: string;
   number: string;
   neighborhood: string;
@@ -24,12 +27,19 @@ type ClientFormData = {
   complement?: string | null;
 };
 
-export function NewClientModal() {
+export function NewClientModal({
+  trigger,
+  client,
+}: {
+  trigger?: ReactNode;
+  client?: Customer;
+}) {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState<ClientFormData>({
     name: "",
     email: "",
     phone: "",
+    document: "",
     street: "",
     number: "",
     neighborhood: "",
@@ -41,22 +51,75 @@ export function NewClientModal() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    console.log(name);
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
-    console.log("Submitting:", formData);
-    // Close the modal after submission
+
+    const info = {
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      document: formData.document,
+    };
+
+    const address = {
+      street: formData.street,
+      number: formData.number,
+      neighborhood: formData.neighborhood,
+      zip_code: formData.zip_code,
+      city: formData.city,
+      state: formData.state,
+      country: formData.country,
+    };
+
+    const data = {
+      info: { ...info },
+      address: { ...address },
+    };
+
+    if (client && client.info.id) {
+      await axios.patch(`http://localhost:3000/cliente/${client?.info.id}`, {
+        ...data,
+        addressId: client.address.id,
+      });
+    } else {
+      await axios.post("http://localhost:3000/cliente", data);
+    }
+
     setOpen(false);
   };
 
+  useEffect(() => {
+    if (!client) return;
+    const data: ClientFormData = {
+      city: client.address.city,
+      country: client.address.country,
+      neighborhood: client.address.neighborhood,
+      number: client.address.number,
+      state: client.address.state,
+      street: client.address.street,
+      zip_code: client.address.zip_code,
+      complement: client.address.complement,
+      document: client.info.document,
+      email: client.info.email,
+      name: client.info.name,
+      phone: client.info.phone,
+    };
+    setFormData(data);
+  }, [client]);
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline">Novo Cliente</Button>
-      </DialogTrigger>
+    <Dialog
+      open={open}
+      onOpenChange={(value) => {
+        setOpen(value);
+        if (!value && !client) setFormData({} as ClientFormData);
+      }}
+    >
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Cliente</DialogTitle>
@@ -64,104 +127,103 @@ export function NewClientModal() {
         <form onSubmit={handleSubmit} className=" space-y-4">
           <div className="grid gap-x-6 grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name">Nome</Label>
               <Input
                 id="name"
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">E-mail</Label>
               <Input
                 id="email"
                 name="email"
                 type="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone</Label>
+              <Label htmlFor="phone">Telefone</Label>
               <Input
                 id="phone"
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="street">Street</Label>
+              <Label htmlFor="document">Documento</Label>
+              <Input
+                id="document"
+                name="document"
+                value={formData.document}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="street">Logradouro</Label>
               <Input
                 id="street"
                 name="street"
                 value={formData.street}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="number">Number</Label>
+              <Label htmlFor="number">Número</Label>
               <Input
                 id="number"
                 name="number"
                 value={formData.number}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="neighborhood">Neighborhood</Label>
+              <Label htmlFor="neighborhood">Bairro</Label>
               <Input
                 id="neighborhood"
                 name="neighborhood"
                 value={formData.neighborhood}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="zip_code">ZIP Code</Label>
+              <Label htmlFor="zip_code">CEP</Label>
               <Input
                 id="zip_code"
                 name="zip_code"
                 value={formData.zip_code}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="city">City</Label>
+              <Label htmlFor="city">Cidade</Label>
               <Input
                 id="city"
                 name="city"
                 value={formData.city}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="state">State</Label>
+              <Label htmlFor="state">Estado</Label>
               <Input
                 id="state"
                 name="state"
                 value={formData.state}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="country">Country</Label>
+              <Label htmlFor="country">País</Label>
               <Input
                 id="country"
                 name="country"
                 value={formData.country}
                 onChange={handleInputChange}
-                required
               />
             </div>
           </div>
