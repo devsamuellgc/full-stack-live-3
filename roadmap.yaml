@@ -1,0 +1,169 @@
+### Roadmap
+
+## Front-end
+- HTML:
+    - Tags:
+        - Estrutura (body, main, footer, section, div, aside, etc)
+        - Textos (h1...h6, p, span, a, etc)
+        - Listas (ul, ol, etc)
+        - Tabelas (table, etc)
+        - Formulários (form, input, textarea, select, label, etc)
+    - Semântica
+    - Acessibilidade
+    - SEO
+- CSS:
+    - Color, background-color, font-size, etc
+    - Height, width, etc
+    - Margin, padding, border, etc
+    - Position:
+        - Fixed
+        - Absolute
+        - Relative
+        - Sticky
+        - Static
+    - Display:
+        - Flex (flexbox)
+        - Grid (https://css-tricks.com/snippets/css/complete-guide-grid/)
+        - Block
+        - Inline-block
+        - Inline
+        - Etc
+    - Z-index, overflow, opacity, animation, etc
+    - Hover, action, etc
+    - Media Query
+    - Flexbox (https://css-tricks.com/snippets/css/a-guide-to-flexbox/):
+        - Justify-content
+        - Align-items
+        - Gap
+        - Order
+        - Flex-direction
+        - Flex-wrap
+        - Flex
+        - Etc
+- JavaScript (Web):
+    - Básico:
+        - Variáveis: Let, const
+        - Funções
+        - Types
+        - Condicionais (If, Else, Switch)
+        - Loops (For, while, do...while)
+        - Dates
+    - Manipulação do DOM:
+        - Selecionar elementos (querySelector, getElementById)
+        - Modificar texto, HTML e atributos (innerText, innerHTML, setAttribute)
+        - Alterar estilos e classes (style, classList)
+        - Etc
+    - Eventos:
+        - addEventListener para eventos como click, keyup, change
+        - Delegação de eventos para elementos dinâmicos
+    - Arrays:
+        - Métodos principais: map, filter, reduce, forEach, find, some, every, etc
+        - Ordenação e manipulação com sort e splice, etc
+    - Objetos:
+        - Acessar e modificar propriedades (obj.key ou obj['key'])
+        - Clonar e combinar objetos (Object.assign, spread operator ...)
+        - Iterar com Object.keys, Object.values, Object.entries
+    - Promises:
+        - Criação e uso de .then, .catch, .finally
+        - API Fetch:
+            - Requisições HTTP (fetch) para consumir APIs
+            - Manipular respostas JSON
+            - Catch
+        - Async/Await:
+            - Simplificação de Promises em funções assíncronas
+            - Try/catch/finally
+    - Local Storage:
+        - Armazenar dados com localStorage.setItem e recuperar com localStorage.getItem
+    - Manipulação de formulários:
+        - Capturar valores de inputs
+        - Validar campos via JavaScript
+- React (https://roadmap.sh/react):
+    - TypeScript
+    - Vite
+    - Componentes:
+        - JSX/TSX
+        - Props
+        - Componentização
+    - Estados
+    - Hooks:
+        - useState*
+        - useEffect*
+        - useContext*
+        - useRef/ref*
+        - useMemo
+        - useReducer
+        - useCallback
+        - Custom hooks*
+        - Etc
+    - Bibliotecas:
+        - React Router Dom (rotas)
+        - React Hook Form / Formik (Formulários)
+        - Material UI, Shadcn, Radix, Bootstrap, AntDesign, Chakra UI (Componentes)
+        - Tailwind (CSS)
+        - Zod / Yup (Validação)
+        - Axios / React Query (API)
+        - Framer Motion (Animação)
+        - Cypress, Jest (Testes)
+        - Frameworks:
+            - Next
+            - Astro
+            - Etc
+
+## Back-end
+- Node (https://roadmap.sh/nodejs):
+    - TypeScript
+    - Módulos: CommonJS e ESM
+    - Npm
+    - Programação Assíncrona:
+        - Promises
+        - Async/Await
+        - Callbacks
+    - Lidando com erros
+    - Variáveis de ambiente:
+        - process.env
+        - dotenv
+    - Arquivos:
+        - fs module
+        - path module
+    - Framework:
+        - Express
+        - Nest
+        - Fastify
+    - API:
+        - Axios*
+        - Fetch
+        - Http módulo
+    - Testes:
+        - Vitest
+        - Jest*
+    - Banco de dados:
+        - SQL:
+            - Postgresql*
+            - MySql
+            - MariaDb
+            - TypeOrm*
+            - Prisma*
+            - Sequelize
+            - Etc
+        - NoSQL:
+            - Mongo*
+            - Mongoose
+            - Prisma
+    - Logs
+    - Threads
+    - Streams
+    - Debugging
+
+## DevOps
+- Docker
+- CI/CD
+- Deploy:
+    - AWS
+    - Render
+    - Vercel
+- Controle de dependências:
+    - Yarn
+    - Pnpm
+    - Npm
+- Construção de aplicações:
+    - Webpack, esbuild, Vite

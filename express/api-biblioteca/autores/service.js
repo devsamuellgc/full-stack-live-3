@@ -1,6 +1,9 @@
 import * as repository from "./repository.js";
 
-const getAllAuthors = async () => await repository.getAllAuthors();
+const getAllAuthors = async (userId) => await repository.getAllAuthors(userId);
+
+const getAllAuthorsPaginated = async (params, userId) =>
+  await repository.getAllAuthorsPaginated(params, userId);
 
 const getAuthorById = async (id) => {
   const author = await repository.getAuthorById(id);
@@ -31,4 +34,5 @@ export {
   deleteAuthor,
   getAuthorById,
   getAllAuthors,
+  getAllAuthorsPaginated,
 };

@@ -3,7 +3,9 @@ import * as authorController from "./controller.js";
 
 export const authorsRouters = express.Router();
 
-authorsRouters.get("/autores", authorController.getAllAuthors);
+authorsRouters.get("/lista-autores", authorController.getAllAuthors);
+
+authorsRouters.get("/autores", authorController.getAllAuthorsPaginated);
 
 authorsRouters.get("/autor/:id", authorController.getAuthorById);
 

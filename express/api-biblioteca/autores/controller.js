@@ -1,7 +1,18 @@
 import * as service from "./service.js";
 
 const getAllAuthors = async (req, res) => {
-  const authors = await service.getAllAuthors();
+  const authors = await service.getAllAuthors(req.user.id);
+
+  return res.json({
+    mensagem: "Autores listados com sucesso!",
+    data: authors,
+  });
+};
+
+const getAllAuthorsPaginated = async (req, res) => {
+  const params = req.query;
+  const userId = req.user.id;
+  const authors = await service.getAllAuthorsPaginated(params, userId);
 
   return res.json({
     mensagem: "Autores listados com sucesso!",
@@ -23,19 +34,19 @@ const getAuthorById = async (req, res) => {
 
 const createAuthor = async (req, res) => {
   const body = req.body;
+  const user = req.user;
 
   if (!body.nome) {
     return res.status(400).json({ error: "Nome obrigatório!" });
   }
 
-  if (!body.biblioteca_id) {
-    return res.status(400).json({ error: "Id da biblioteca obrigatório!" });
-  }
-
-  const createdAuthor = await service.createAuthor(body);
+  const createdAuthor = await service.createAuthor({
+    ...body,
+    biblioteca_id: user.id,
+  });
 
   return res.status(201).json({
-    message: "Autor criada com sucesso",
+    message: "Autor criado com sucesso",
     data: createdAuthor,
   });
 };
@@ -69,4 +80,11 @@ const editAuthor = async (req, res) => {
   });
 };
 
-export { editAuthor, getAuthorById, getAllAuthors, createAuthor, deleteAuthor };
+export {
+  editAuthor,
+  getAuthorById,
+  getAllAuthors,
+  createAuthor,
+  deleteAuthor,
+  getAllAuthorsPaginated,
+};

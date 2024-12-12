@@ -73,6 +73,12 @@ const editLibrary = async (req, res) => {
   const id = req.params.id;
   const body = req.body;
 
+  const library = await service.getLibraryById(id);
+
+  if (!library) {
+    return res.status(404).json({ mensagem: "Biblioteca não encontrada!" });
+  }
+
   const updatedLibrary = await service.editLibrary(id, body);
 
   return res.status(200).json({

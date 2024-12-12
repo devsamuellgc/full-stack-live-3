@@ -1,4 +1,5 @@
 import * as repository from "./repository.js";
+import bcrypt from "bcryptjs";
 
 const getAllLibraries = async () => await repository.getAllLibraries();
 
@@ -7,8 +8,15 @@ const getLibraryById = async (id) => {
   return library;
 };
 
+const getLibraryByEmail = async (email) =>
+  await repository.getLibraryByEmail(email);
+
 const createLibrary = async (library) => {
-  const createdLibrary = await repository.createLibrary(library);
+  const hashedPassword = bcrypt.hashSync(library.senha);
+  const createdLibrary = await repository.createLibrary({
+    ...library,
+    senha: hashedPassword,
+  });
 
   return createdLibrary;
 };
@@ -31,4 +39,5 @@ export {
   deleteLibrary,
   getLibraryById,
   getAllLibraries,
+  getLibraryByEmail,
 };

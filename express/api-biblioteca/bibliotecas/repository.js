@@ -12,6 +12,12 @@ const getLibraryById = async (id) => {
   return result.rows[0];
 };
 
+const getLibraryByEmail = async (email) => {
+  const query = `SELECT * FROM app_biblioteca.bibliotecas WHERE email = $1`;
+  const result = await pool.query(query, [email]);
+  return result.rows[0];
+};
+
 const createLibrary = async (library) => {
   const keys = Object.keys(library);
   const values = Object.values(library);
@@ -45,4 +51,5 @@ export {
   createLibrary,
   getAllLibraries,
   getLibraryById,
+  getLibraryByEmail,
 };
